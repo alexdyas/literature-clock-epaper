@@ -1,0 +1,20 @@
+# ------------------------------------------------------------------------------
+#
+# File          - literature-clock-epaper.service
+#
+# Description   - litererature clock systemd service
+#
+# Find me       - https://github.com/alexdyas/literature-clock-epaper/blob/main/src/literature-clock-epaper.service
+#
+# ------------------------------------------------------------------------------
+[Unit]
+Description=literature-clock-epaper
+After=multi-user.target
+
+[Service]
+ExecStartPre=/bin/sleep 30
+WorkingDirectory=/home/alexander/literature-clock-epaper
+ExecStart=/usr/bin/python3 /home/alexander/literature-clock-epaper/literature-clock-epaper.py --flip
+
+[Install]
+WantedBy=multi-user.target
