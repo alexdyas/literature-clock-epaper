@@ -276,7 +276,10 @@ if __name__ == "__main__":
 
     if options.DEBUG:
         LOGGINGLEVEL = logging.DEBUG
-    logging.basicConfig(level=LOGGINGLEVEL)
+    logging.basicConfig(
+        filename="/home/alexander/literature-clock-epaper/literature-clock-epaper.log",
+        level=LOGGINGLEVEL,
+    )
 
     if options.DBFILENAME:
         DBFILENAME = options.DBFILENAME
@@ -315,7 +318,7 @@ if __name__ == "__main__":
         else:
             hour, minute = options.ONEOFFTIME.split(":")
 
-        logging.debug(f"Processing {hour}:{minute}")
+        logging.debug(f"Processing time {hour}:{minute}")
 
         texttime, snippet, title, author = read_random_snippet(hour, minute)
         snippet = clean_snippet(snippet)
