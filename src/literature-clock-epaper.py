@@ -132,8 +132,13 @@ def read_random_snippet(hour, minute):
         with sqlite3.connect(DBFILENAME) as connection:
             cursor = connection.cursor()
     except sqlite3.OperationalError as e:
-        logging.error(f"Failed to get row from SQLLight DB, error {e}, quitting")
-        exit(1)
+        logging.error(f"Failed to connect to SQLLight DB {DBFILENAME}, error {e}")
+        return [
+            "Error",
+            "Error connecting to database, see logs.",
+            "<no title>",
+            "<nobody>",
+        ]
 
     try:
         cursor.execute(
@@ -142,8 +147,13 @@ def read_random_snippet(hour, minute):
         connection.commit()
         rows = cursor.fetchall()
     except Exception as e:
-        logging.error(f"Failed to get row from SQLLight DB, error {e}, quitting")
-        exit(1)
+        logging.error(f"Failed to get row from SQLLight DB {DBFILENAME}, error {e}")
+        return [
+            "Error",
+            "Error retrieving row from database, see logs.",
+            "<no title>",
+            "<nobody>",
+        ]
 
     connection.close()
 
