@@ -155,7 +155,7 @@ def read_random_snippet(hour, minute):
             "<nobody>",
         ]
 
-    connection.close()
+    cursor.close()
 
     # If there was no record return a message and carry on without crashing
     if len(rows) == 0 or len(rows[0]) < 7:
