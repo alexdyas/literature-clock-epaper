@@ -392,6 +392,9 @@ if __name__ == "__main__":
         logging.debug("Displaying image...")
         epd.display_1Gray(epd.getbuffer(Himage))
 
+        # Sleep the ePaper display which also released SPI resources
+        epd.sleep()
+
         if options.ONEOFFTIME != None:
             logging.debug("oneofftime processed, quitting")
             exit(0)
