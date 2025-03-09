@@ -133,8 +133,6 @@ def read_random_snippet(hour, minute):
             cursor = connection.cursor()
     except sqlite3.OperationalError as e:
         logging.error(f"Failed to connect to SQLLight DB {DBFILENAME}, error {e}")
-        logging.debug("Closing DB connection 01")
-        connection.close()
         return [
             "Error",
             "Error connecting to database, see logs.",
@@ -150,8 +148,6 @@ def read_random_snippet(hour, minute):
         rows = cursor.fetchall()
     except Exception as e:
         logging.error(f"Failed to get row from SQLLight DB {DBFILENAME}, error {e}")
-        logging.debug("Closing DB connection 02")
-        connection.close()
         return [
             "Error",
             "Error retrieving row from database, see logs.",
@@ -159,7 +155,6 @@ def read_random_snippet(hour, minute):
             "<nobody>",
         ]
 
-    logging.debug("Closing DB connection 03")
     connection.close()
 
     # If there was no record return a message and carry on without crashing
