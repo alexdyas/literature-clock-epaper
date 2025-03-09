@@ -292,7 +292,6 @@ if __name__ == "__main__":
     if options.DEBUG:
         LOGGINGLEVEL = logging.DEBUG
     logging.basicConfig(
-        filename="/home/alexander/literature-clock-epaper/literature-clock-epaper.log",
         level=LOGGINGLEVEL,
     )
 
