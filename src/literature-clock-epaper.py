@@ -132,8 +132,13 @@ def read_random_snippet(hour, minute):
         with sqlite3.connect(DBFILENAME) as connection:
             cursor = connection.cursor()
     except sqlite3.OperationalError as e:
-        logging.error(f"Failed to get row from SQLLight DB, error {e}, quitting")
-        exit(1)
+        logging.error(f"Failed to connect to SQLLight DB {DBFILENAME}, error {e}")
+        return [
+            "Error",
+            "Error connecting to database, see logs.",
+            "<no title>",
+            "<nobody>",
+        ]
 
     try:
         cursor.execute(
@@ -142,8 +147,13 @@ def read_random_snippet(hour, minute):
         connection.commit()
         rows = cursor.fetchall()
     except Exception as e:
-        logging.error(f"Failed to get row from SQLLight DB, error {e}, quitting")
-        exit(1)
+        logging.error(f"Failed to get row from SQLLight DB {DBFILENAME}, error {e}")
+        return [
+            "Error",
+            "Error retrieving row from database, see logs.",
+            "<no title>",
+            "<nobody>",
+        ]
 
     connection.close()
 
@@ -276,7 +286,9 @@ if __name__ == "__main__":
 
     if options.DEBUG:
         LOGGINGLEVEL = logging.DEBUG
-    logging.basicConfig(level=LOGGINGLEVEL)
+    logging.basicConfig(
+        level=LOGGINGLEVEL,
+    )
 
     if options.DBFILENAME:
         DBFILENAME = options.DBFILENAME
@@ -315,7 +327,7 @@ if __name__ == "__main__":
         else:
             hour, minute = options.ONEOFFTIME.split(":")
 
-        logging.debug(f"Processing {hour}:{minute}")
+        logging.debug(f"Processing time {hour}:{minute}")
 
         texttime, snippet, title, author = read_random_snippet(hour, minute)
         snippet = clean_snippet(snippet)
@@ -373,6 +385,9 @@ if __name__ == "__main__":
 
         logging.debug("Displaying image...")
         epd.display_1Gray(epd.getbuffer(Himage))
+
+        # Sleep the ePaper display which also released SPI resources
+        epd.sleep()
 
         if options.ONEOFFTIME != None:
             logging.debug("oneofftime processed, quitting")
