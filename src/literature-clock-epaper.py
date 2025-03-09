@@ -51,6 +51,7 @@ NORMAL_REGULAR_FONT_20 = ImageFont.truetype(
 )
 NORMAL_BOLD_FONT_20 = ImageFont.truetype(os.path.join(picdir, "Spectral-Bold.ttf"), 20)
 TEXTLINESVERTICALOFFSET = 20
+LOGFILENAME = ""
 
 
 def clean_snippet(snippet):
@@ -264,6 +265,12 @@ if __name__ == "__main__":
         help="Flip screen horizonally, and vertically",
     )
     parser.add_option(
+        "-l",
+        "--logfile",
+        dest="LOGFILENAME",
+        help="Log to a file instead of the default STDOUT",
+    )
+    parser.add_option(
         "-n",
         "--disableinfo",
         action="store_true",
@@ -286,9 +293,15 @@ if __name__ == "__main__":
 
     if options.DEBUG:
         LOGGINGLEVEL = logging.DEBUG
-    logging.basicConfig(
-        level=LOGGINGLEVEL,
-    )
+
+    if options.LOGFILENAME:
+        LOGFILENAME = options.LOGFILENAME
+        logging.basicConfig(
+            filename=LOGFILENAME,
+            level=LOGGINGLEVEL,
+        )
+    else:
+        logging.basicConfig(level=LOGGINGLEVEL)
 
     if options.DBFILENAME:
         DBFILENAME = options.DBFILENAME
