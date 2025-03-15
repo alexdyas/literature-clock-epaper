@@ -93,6 +93,7 @@ The main executable (`literature-clock-epaper.py`) has the following command lin
 | `--disableinfo` | Disable display of system info on startup | Optional | Off |
 | `--flip` | Flip screen horizontally and vertically | Optional | Off |
 | `--help` | Print usage help | Optional | - |
+| `--logfile <filename>` | Log to a file instead of the default STDOUT | Optional | STDOUT |
 | `--oneofftime <HH:MM>` | Run once for specified hour/minute. For debugging | Optional | Off |
 | `--sqlightdbfile <path to db file>` | Specify alternate path to Sqlight DB file | Optional | `data/quotes.db` |
 
