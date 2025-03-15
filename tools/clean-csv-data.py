@@ -67,6 +67,10 @@ if __name__ == "__main__":
         # Useless spaces
         line = re.sub(r" \|", "|", line)
         line = re.sub(r"\| ", "|", line)
+        # Remove quotes from texttime field
+        [time, texttime, snippet, title, author, sfw] = line.split("|")
+        texttime = re.sub(r'"', "", texttime)
+        line = "|".join([time, texttime, snippet, title, author, sfw])
 
         print(line, end="")
 
