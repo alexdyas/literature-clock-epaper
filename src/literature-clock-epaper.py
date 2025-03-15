@@ -33,7 +33,7 @@ import subprocess
 
 
 PROGRAM_NAME = "literature-clock-epaper"
-PROGRAM_VERSION = "1.0.2"
+PROGRAM_VERSION = "1.0.4"
 ENCODING_CHARACTER = "_"
 SMALL_FONT_LINE_WIDTH = 65
 NORMAL_FONT_LINE_WIDTH = 50
